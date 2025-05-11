@@ -1,0 +1,325 @@
+/* 優化版 CSS - 使用者需自行放入背景圖片，檔名為 '禾禾稻.jpg' */
+
+:root {
+    --spotify-green: #ff5e6c; /* 珊瑚紅按鈕 */
+    --spotify-accent: #ff7085; /* 按鈕 hover 色 */
+    --background-dark: #121212;
+    --text-light: #ffffff; /* 全站白字 */
+    --text-secondary: #cccccc;
+    --step-active-bg: #ffd700; /* 銘黃色 */
+    --step-text-dark: #333333; /* 深灰色數字 */
+    --card-bg: rgba(0, 0, 0, 0.6); /* 深色半透明 */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--background-dark);
+    background-image: url("禾禾稻.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: var(--spotify-green);
+    margin-bottom: 1rem;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card h2 {
+    color: var(--spotify-green);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+input, button {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+}
+
+input {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+}
+
+input:focus {
+    outline: 2px solid var(--spotify-green);
+}
+
+button {
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.primary-btn {
+    background-color: var(--spotify-green);
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: var(--spotify-accent);
+}
+
+.outline-btn {
+    background-color: transparent;
+    border: 1px solid var(--spotify-green);
+    color: var(--spotify-green);
+}
+
+.outline-btn:hover {
+    background-color: var(--spotify-green);
+    color: white;
+}
+
+button:disabled {
+    background-color: #888;
+    color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.save-btn {
+    margin-top: 2rem;
+    background-color: var(--spotify-accent);
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #ff8599;
+}
+
+.song-list {
+    margin-top: 2rem;
+}
+
+.song-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    color: white;
+}
+
+.song-info {
+    flex-grow: 1;
+}
+
+.song-title {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.song-artist {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.song-actions button {
+    width: auto;
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+}
+
+.song-actions .primary-btn {
+    background-color: var(--spotify-green);
+    border: none;
+    color: white;
+}
+
+.song-actions .primary-btn:hover {
+    background-color: var(--spotify-accent);
+}
+
+#playlistInfo {
+    display: none;
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    border-left: 4px solid var(--spotify-green);
+}
+
+#playlistLink {
+    color: var(--spotify-green);
+    word-break: break-word;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.steps::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-secondary);
+    z-index: 1;
+}
+
+.step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--text-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+    color: var(--step-text-dark);
+}
+
+.step.active {
+    background-color: var(--step-active-bg);
+    color: var(--step-text-dark);
+}
+
+.view {
+    display: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.view.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.success-message {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--spotify-green);
+    font-size: 1.5rem;
+}
+
+.search-results {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 1rem;
+}
+
+.search-results::-webkit-scrollbar {
+    width: 8px;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+    background-color: var(--text-secondary);
+    border-radius: 4px;
+}
+
+.search-results::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-light);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-style: italic;
+}
+
+.loading {
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-light);
+}
+
+.loading::after {
+    content: "...";
+    animation: dots 1s steps(5, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: "."; }
+    40% { content: ".."; }
+    60%, 100% { content: "..."; }
+}
+
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 1rem;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    input, button {
+        font-size: 0.9rem;
+    }
+
+    .song-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .song-actions {
+        margin-top: 0.5rem;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+}

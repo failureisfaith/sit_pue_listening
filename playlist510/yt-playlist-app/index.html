@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>listen | playlist</title>
+  <link rel="stylesheet" href="styles.css" />
+  
+  <!-- ✅ Google 身分驗證 (GIS) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <!-- ✅ YouTube Data API -->
+  <script src="https://apis.google.com/js/api.js" async defer onload="gapiLoaded()"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>⛆靈魂碰撞之時⛆</h1>
+      <p>+或許你在某時某刻能在此處與我再次相遇+</p>
+    </header>
+
+    <!-- Google 登入 -->
+    <div style="text-align:center; margin-top: 1rem;">
+      <button id="loginBtn" class="primary-btn">使用 Google 帳號登入</button>
+    </div>
+
+    <div class="steps">
+      <div class="step" id="step1">1</div>
+      <div class="step" id="step2">2</div>
+      <div class="step" id="step3">3</div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="view" id="view1">
+      <div class="card">
+        <h2>░STEP'1⇨將您的暱稱輸入至此░</h2>
+        <form id="nicknameForm">
+          <input type="text" id="nickname" placeholder="請輸入您的暱稱☺" required />
+          <button type="submit">沒問題了☆⌒(*^-゜)v</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="view" id="view2">
+      <div class="card">
+        <h2>░STEP'2⇨添加一些你的思念於此保存░</h2>
+        <div id="playlistInfo" style="display:none;">
+          <p>您的歌單名稱: <span id="playlistName"></span></p>
+          <p>歌單連結將在保存後居住於你的歌單列表，我將化作代碼陪伴你♪♫</p>
+        </div>
+        <input type="text" id="searchInput" placeholder="搜尋讓你想起某人、某段時光的音樂吧…" />
+        <button id="searchBtn">搜尋</button>
+
+        <div id="searchResults" class="search-results">
+          <div class="empty-state">搜尋歌曲以添加到您的播放清單</div>
+        </div>
+
+        <h3 style="margin-top: 2rem;">您的歌單</h3>
+        <div id="selectedSongs" class="song-list">
+          <div class="empty-state">尚未添加歌曲</div>
+        </div>
+
+        <button id="nextToSaveBtn" class="save-btn">準備好保存對對方的思念了嗎ㅎㅎ</button>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="view" id="view3">
+      <div class="card">
+        <h2>░STEP'3⇨製作好長久保存的紀念品了ᵔ︡⌔ᵔ︠ ░</h2>
+        <div class="success-message">
+          <p>恭喜！你的歌單創建成功( ⁼̴̀ .̫ ⁼̴ )✧</p>
+          <div id="finalPlaylistInfo" style="margin-top: 2rem;">
+            <p>歌單名稱: <span id="finalPlaylistName"></span></p>
+            <p>歌單連結: <a id="playlistLink" href="#" target="_blank"></a></p>
+          </div>
+        </div>
+        <button id="saveToAccountBtn">保存至帳號的播放清單囉´• •`</button>
+        <button id="createNewBtn" class="save-btn" style="background-color: transparent; border: 1px solid #a00909; color: #d46464;">還想創建新歌單嗎 請點這裡</button>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; sit-pue | mmxxv-may </p>
+    </footer>
+  </div>
+
+  <!-- 你自己撰寫的主程式邏輯 -->
+  <script src="script.js"></script>
+</body>
+</html>
