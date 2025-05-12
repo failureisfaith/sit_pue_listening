@@ -1,18 +1,17 @@
-// ✅ 最終版 script.js，修正 gapiLoaded 問題、登入流程、搜尋、建立歌單
+// ✅ 完整 script.js 可直接貼上使用
 
 let tokenClient;
 let isAuthorized = false;
 let selectedVideos = [];
 let playlistId = '';
 
-// 🔧 必須定義：gapi 載入完成後會呼叫這個
 function gapiLoaded() {
   console.log("🔃 gapiLoaded 被呼叫");
   gapi.load("client", () => {
     tokenClient = google.accounts.oauth2.initTokenClient({
       client_id: '727367841573-fh6clqvs243auo7qlip0iu3g87i20eq6.apps.googleusercontent.com',
       scope: 'https://www.googleapis.com/auth/youtube',
-      callback: ''
+      callback: '' // 登入時再設定
     });
     console.log("🪄 tokenClient 初始化完成");
   });
@@ -31,16 +30,19 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("授權失敗，請稍後再試");
         return;
       }
+
       await gapi.client.init({
         discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest"]
       });
       gapi.client.setToken(tokenResponse);
       isAuthorized = true;
       console.log("✅ 使用者登入成功！");
+
       document.getElementById('step1').classList.add('active');
       document.getElementById('view1').classList.add('active');
       document.getElementById('loginSection').style.display = 'none';
     };
+
     tokenClient.requestAccessToken();
   });
 
@@ -69,11 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const query = document.getElementById('searchInput').value.trim();
     const resultsContainer = document.getElementById('searchResults');
     if (!query) {
-      resultsContainer.innerHTML = `<div class=\"empty-state\">請輸入搜尋關鍵字</div>`;
+      resultsContainer.innerHTML = `<div class="empty-state">請輸入搜尋關鍵字</div>`;
       return;
     }
     try {
-      resultsContainer.innerHTML = `<div class=\"loading\">搜尋中...</div>`;
+      resultsContainer.innerHTML = `<div class="loading">搜尋中...</div>`;
       const response = await gapi.client.youtube.search.list({
         part: 'snippet',
         q: query,
@@ -82,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       const items = response.result.items;
       if (!items || items.length === 0) {
-        resultsContainer.innerHTML = `<div class=\"empty-state\">找不到相關影片 :(</div>`;
+        resultsContainer.innerHTML = `<div class="empty-state">找不到相關影片 :(</div>`;
         return;
       }
       resultsContainer.innerHTML = '';
@@ -93,13 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
         div.className = 'song-item';
         div.innerHTML = `
           <p>${title}</p>
-          <button class=\"primary-btn\" data-video-id=\"${videoId}\" data-title=\"${title}\">加入</button>
+          <button class="primary-btn" data-video-id="${videoId}" data-title="${title}">加入</button>
         `;
         resultsContainer.appendChild(div);
       });
     } catch (error) {
       console.error("❌ 搜尋失敗：", error);
-      resultsContainer.innerHTML = `<div class=\"empty-state\">搜尋失敗，請稍後再試</div>`;
+      resultsContainer.innerHTML = `<div class="empty-state">搜尋失敗，請稍後再試</div>`;
     }
   });
 
